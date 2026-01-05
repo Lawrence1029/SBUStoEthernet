@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "lwip.h": "c",
+        "netif.h": "c",
+        "stm32f1xx_hal.h": "c",
+        "pbuf.h": "c",
+        "tcp.h": "c",
+        "main.h": "c",
+        "stdio.h": "c",
+        "mem.h": "c"
+    }
+}
