@@ -104,7 +104,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX
     */
-    if(!UartTXInversion) {
+    if(UartTXInversion) {
       GPIO_InitStruct.Pin = GPIO_PIN_9;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -116,7 +116,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
       HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
     }
 
-    if(!UartRXInversion) {
+    if(UartRXInversion) {
       GPIO_InitStruct.Pin = GPIO_PIN_10;
       GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
       GPIO_InitStruct.Pull = GPIO_NOPULL;

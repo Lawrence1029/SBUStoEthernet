@@ -153,12 +153,12 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   // Load configuration from flash memory
-  load_config_from_flash();
+  // load_config_from_flash();
   
-  if(UartBaudRate == 0xFFFFFFFF){
+  // if(UartBaudRate == 0xFFFFFFFF){
     //Uninitialized flash, set defaults
     UartBaudRate = 115200;
-    UartWordLength = UART_WORDLENGTH_8B;
+    UartWordLength = UART_WORDLENGTH_9B;
     UartStopBits = UART_STOPBITS_2;
     UartParity = UART_PARITY_EVEN;
     UartInversion = UART_INVERSION_RXTX;
@@ -184,8 +184,8 @@ int main(void)
     TX_PORT = 5007;
 
     //Update flash with defaults
-    handle_save_config_command();
-  }
+    // handle_save_config_command();
+  // }
 
 
   /* USER CODE END 1 */
