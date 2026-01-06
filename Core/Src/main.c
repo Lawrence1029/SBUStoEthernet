@@ -179,9 +179,9 @@ int main(void)
     DEST_IP_ADDRESS[0] = 192;
     DEST_IP_ADDRESS[1] = 168;
     DEST_IP_ADDRESS[2] = 144;
-    DEST_IP_ADDRESS[3] = 34;
-    RX_PORT = 7;
-    TX_PORT = 7;
+    DEST_IP_ADDRESS[3] = 133;
+    RX_PORT = 5007;
+    TX_PORT = 5007;
 
     //Update flash with defaults
     handle_save_config_command();
@@ -459,7 +459,8 @@ void UDP_SERVER_INIT(void){
   /* Create a new UDP control block  */
   upcb = udp_new();
 
-  err = udp_bind(upcb, &ipaddr, RX_PORT); // Bind to port
+  // Bind to IP_ADDR_ANY to accept packets on any interface
+  err = udp_bind(upcb, IP_ADDR_ANY, RX_PORT); // Bind to port
   if (err == ERR_OK) {
     // Set a receive callback function
     udp_recv(upcb, udp_receive_callback, NULL);
@@ -469,7 +470,8 @@ void UDP_SERVER_INIT(void){
   }
 
   prog_upcb = udp_new();
-  err = udp_bind(prog_upcb, &ipaddr, PROG_PORT); // Bind to port
+  // Bind to IP_ADDR_ANY to accept packets on any interface
+  err = udp_bind(prog_upcb, IP_ADDR_ANY, PROG_PORT); // Bind to port
   if (err == ERR_OK) {
     // Set a receive callback function
     udp_recv(prog_upcb, prog_udp_receive_callback, NULL);

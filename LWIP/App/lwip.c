@@ -53,7 +53,7 @@ ip4_addr_t dest_ipaddr;
 
 uint16_t RX_PORT;
 uint16_t TX_PORT;
-uint16_t PROG_PORT = 33;
+uint16_t PROG_PORT = 5033;
 /* USER CODE END 2 */
 
 /**
