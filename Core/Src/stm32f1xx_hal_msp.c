@@ -99,17 +99,18 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     /* Peripheral clock enable */
     __HAL_RCC_USART1_CLK_ENABLE();
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
     /**USART1 GPIO Configuration
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX
     */
     if(UartTXInversion) {
+      __HAL_RCC_GPIOA_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_9;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
       HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     }else{
+      __HAL_RCC_GPIOB_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_6;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -117,11 +118,13 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     }
 
     if(UartRXInversion) {
+      __HAL_RCC_GPIOA_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_10;
       GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
       GPIO_InitStruct.Pull = GPIO_NOPULL;
       HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     }else{
+      __HAL_RCC_GPIOB_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_7;
       GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
       GPIO_InitStruct.Pull = GPIO_NOPULL; 

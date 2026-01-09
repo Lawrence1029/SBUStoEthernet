@@ -153,11 +153,11 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   // Load configuration from flash memory
-  // load_config_from_flash();
+  load_config_from_flash();
   
-  // if(UartBaudRate == 0xFFFFFFFF){
+  if(UartBaudRate == 0xFFFFFFFF){
     //Uninitialized flash, set defaults
-    UartBaudRate = 115200;
+    UartBaudRate = 100000;
     UartWordLength = UART_WORDLENGTH_9B;
     UartStopBits = UART_STOPBITS_2;
     UartParity = UART_PARITY_EVEN;
@@ -184,8 +184,8 @@ int main(void)
     TX_PORT = 5007;
 
     //Update flash with defaults
-    // handle_save_config_command();
-  // }
+    handle_save_config_command();
+  }
 
 
   /* USER CODE END 1 */
@@ -447,6 +447,23 @@ static void load_config_from_flash(void)
   DEST_IP_ADDRESS[2] = (dest_ip_word >> 16) & 0xFF;
   DEST_IP_ADDRESS[3] = (dest_ip_word >> 24) & 0xFF;
   
+  if(UartInversion == UART_INVERSION_NONE){
+    UartTXInversion = 0;
+    UartRXInversion = 0;
+  }
+  else if(UartInversion == UART_INVERSION_RX){
+    UartTXInversion = 0;
+    UartRXInversion = 1;
+  }
+  else if(UartInversion == UART_INVERSION_TX){
+    UartTXInversion = 1;
+    UartRXInversion = 0;
+  }
+  else if(UartInversion == UART_INVERSION_RXTX){
+    UartTXInversion = 1;
+    UartRXInversion = 1;
+  }
+
   // Read ports from flash (both stored in one 32-bit word)
   uint32_t ports_word = *(volatile uint32_t *)(RX_PORT_ADDRESS);
   RX_PORT = ports_word & 0xFFFF;
