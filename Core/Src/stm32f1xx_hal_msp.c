@@ -104,12 +104,16 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     PA10     ------> USART1_RX
     */
     if(UartTXInversion) {
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_RESET); //Enable TX buffer
+      __HAL_AFIO_REMAP_USART1_DISABLE(); // Use default PA9/PA10 mapping
       __HAL_RCC_GPIOA_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_9;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
       GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
       HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     }else{
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_11, GPIO_PIN_SET); //Disable TX buffer
+      __HAL_AFIO_REMAP_USART1_ENABLE(); // Remap USART1 to PB6/PB7
       __HAL_RCC_GPIOB_CLK_ENABLE();
       GPIO_InitStruct.Pin = GPIO_PIN_6;
       GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
