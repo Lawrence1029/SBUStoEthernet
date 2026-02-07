@@ -3,11 +3,10 @@
 Example usage of the STM32 Configuration Tool
 """
 
-from config_tool import STM32ConfigTool, UartWordLength, UartStopBits, UartParity
-
+from config_tool import STM32ConfigTool, UartWordLength, UartStopBits, UartParity, UartInvert
 # Your STM32 device's current IP address
 TARGET_IP = "192.168.144.33"
-PROG_PORT = 33
+PROG_PORT = 5033
 
 # Create configuration tool instance
 config = STM32ConfigTool(TARGET_IP, PROG_PORT)
@@ -36,15 +35,28 @@ config = STM32ConfigTool(TARGET_IP, PROG_PORT)
 #     parity=UartParity.PARITY_EVEN                # Even parity
 # )
 
+# # Example 3: Configure UART for different settings
+# print("\n" + "=" * 60)
+# print("Example 3: Configure UART for 115200 8N1")
+# print("=" * 60)
+# config.set_uart_config(
+#     baud_rate=115200,
+#     word_length=UartWordLength.WORDLENGTH_8B,
+#     stop_bits=UartStopBits.STOPBITS_1,
+#     parity=UartParity.PARITY_NONE,
+#     Inversion=UartInvert.INVERT_NONE
+# )
+
 # Example 3: Configure UART for different settings
 print("\n" + "=" * 60)
-print("Example 3: Configure UART for 115200 8N1")
+print("Example 3: Configure UART for 100000 9E2")
 print("=" * 60)
 config.set_uart_config(
-    baud_rate=115200,
-    word_length=UartWordLength.WORDLENGTH_8B,
-    stop_bits=UartStopBits.STOPBITS_1,
-    parity=UartParity.PARITY_NONE
+    baud_rate=100000,
+    word_length=UartWordLength.WORDLENGTH_9B,
+    stop_bits=UartStopBits.STOPBITS_2,
+    parity=UartParity.PARITY_EVEN,
+    Inversion=UartInvert.INVERT_RXTX
 )
 
 # # Example 4: Save configuration (requires firmware implementation)
