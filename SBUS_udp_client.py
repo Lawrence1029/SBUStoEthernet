@@ -10,9 +10,9 @@ import threading
 import sys
 
 # Configuration
-DEVICE_IP = "192.168.144.33"
+DEVICE_IP = "192.168.144.90"
 DEVICE_PORT = 5007
-LISTEN_IP = "0.0.0.0"  # Listen on all interfaces to avoid permission issues
+LISTEN_IP = "192.168.144.91"  # Listen on all interfaces to avoid permission issues
 LISTEN_PORT = 5007
 
 def parse_sbus(data):

@@ -5,7 +5,7 @@ Example usage of the STM32 Configuration Tool
 
 from config_tool import STM32ConfigTool, UartWordLength, UartStopBits, UartParity, UartInvert
 # Your STM32 device's current IP address
-TARGET_IP = "192.168.144.33"
+TARGET_IP = "192.168.144.90"
 PROG_PORT = 5033
 
 # Create configuration tool instance

@@ -215,7 +215,25 @@ static void low_level_init(struct netif *netif)
   heth.Init.MediaInterface = ETH_MEDIA_INTERFACE_RMII;
 
   /* USER CODE BEGIN MACADDRESS */
+  /* Derive a per-board MAC from the STM32 96-bit unique device ID so two
+   * boards on the same network never collide. Keep OUI 00:80:E1 (ST),
+   * locally-administered bit cleared, multicast bit cleared.
+   */
+  {
+    uint32_t uid0 = *(volatile uint32_t *)0x1FFFF7E8;
+    uint32_t uid1 = *(volatile uint32_t *)0x1FFFF7EC;
+    uint32_t uid2 = *(volatile uint32_t *)0x1FFFF7F0;
+    uint32_t mix  = uid0 ^ uid1 ^ uid2;
 
+    MACAddr[0] = 0x00;
+    MACAddr[1] = 0x80;
+    MACAddr[2] = 0xE1;
+    MACAddr[3] = (uint8_t)((mix >> 16) & 0xFF);
+    MACAddr[4] = (uint8_t)((mix >> 8)  & 0xFF);
+    MACAddr[5] = (uint8_t)( mix        & 0xFF);
+    /* Ensure unicast (clear multicast bit on first octet) */
+    MACAddr[0] &= 0xFE;
+  }
   /* USER CODE END MACADDRESS */
 
   hal_eth_init_status = HAL_ETH_Init(&heth);

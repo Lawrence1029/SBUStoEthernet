@@ -167,7 +167,7 @@ int main(void)
     IP_ADDRESS[0] = 192;
     IP_ADDRESS[1] = 168;
     IP_ADDRESS[2] = 144;
-    IP_ADDRESS[3] = 33;
+    IP_ADDRESS[3] = 91;
     NETMASK_ADDRESS[0] = 255;
     NETMASK_ADDRESS[1] = 255;
     NETMASK_ADDRESS[2] = 255;
@@ -179,7 +179,7 @@ int main(void)
     DEST_IP_ADDRESS[0] = 192;
     DEST_IP_ADDRESS[1] = 168;
     DEST_IP_ADDRESS[2] = 144;
-    DEST_IP_ADDRESS[3] = 133;
+    DEST_IP_ADDRESS[3] = 90;
     RX_PORT = 5007;
     TX_PORT = 5007;
 
@@ -208,12 +208,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  // MX_IWDG_Init();
   MX_USART1_UART_Init();
   MX_LWIP_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_IT(&huart1, &USART_RX, 1);
   UDP_SERVER_INIT();
+  // MX_IWDG_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -221,6 +221,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    // HAL_IWDG_Refresh(&hiwdg);
     ethernetif_input(&gnetif);
     sys_check_timeouts();
     /* Poll PHY link state so netif link callbacks fire when cable is plugged/unplugged */
@@ -329,7 +330,7 @@ static void MX_IWDG_Init(void)
   /* USER CODE END IWDG_Init 1 */
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-  hiwdg.Init.Reload = 4095;
+  hiwdg.Init.Reload = 799;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();
